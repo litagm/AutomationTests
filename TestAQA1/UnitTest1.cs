@@ -31,9 +31,47 @@ namespace Test1
             UserResponseDTO userResponse = JsonSerializer.Deserialize<UserResponseDTO>(jsonGet);
             UserDataDTO user = userResponse.Data;
 
+
+        }
+
+        [Test]
+        public async Task Test3()
+        {
+            var createNewUserRequest = new CreateUserRequestDTO
+            {
+                Name = "Johan",
+                Job = "PO"
+            };
+
+            using HttpResponseMessage response = await client.PostAsJsonAsync("users", createNewUserRequest);
+            string jsonPost = await response.Content.ReadAsStringAsync();
+            CreateUserResponseDTO createdUser = JsonSerializer.Deserialize<CreateUserResponseDTO>(jsonPost);
+        }
+
+        [Test]
+        public async Task Test4()
+        {
+            var updateUserRequest = new CreateUserRequestDTO
+            {
+                Name = "Mark",
+                Job = "QA"
+            };
+            using HttpResponseMessage response = await client.PutAsJsonAsync("users/2", updateUserRequest);
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Test]
+        public async Task Test5()
+        {
+            using HttpResponseMessage response = await client.DeleteAsync("users/2");
+            response.EnsureSuccessStatusCode();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
             client.Dispose();
 
         }
-        
     }
 }
