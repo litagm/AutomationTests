@@ -2,16 +2,12 @@
 
 namespace Test
 {
-    public class CreateUserResponseDTO
+    public class CreateUserRequestDTO
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
+
         [JsonPropertyName("job")]
         public string Job { get; set; }
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-        [JsonPropertyName("createdAt")]
-        public string CreatedAt { get; set; }
-
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
+using Test;
 
-namespace TestAQA1
+namespace Test1
 {
     public class Tests
     {
@@ -14,8 +15,7 @@ namespace TestAQA1
             {
                 BaseAddress = new Uri("https://reqres.in/api/")
             };
-            client.DefaultRequestHeaders.Add("x-api-key", "free_user_3Hs5R7VxAD3zzrYAcdt3Anqc5bY");             // free_user_3Hs5R7VxAD3zzrYAcdt3Anqc5bY
-
+            client.DefaultRequestHeaders.Add("x-api-key", "free_user_3IJZWznUMiXWMH5pK9fwL6ouONU");
         }
         [Test]
         public async Task Test1()
@@ -30,40 +30,42 @@ namespace TestAQA1
             string jsonGet = await response.Content.ReadAsStringAsync();
             UserResponseDTO userResponse = JsonSerializer.Deserialize<UserResponseDTO>(jsonGet);
             UserDataDTO user = userResponse.Data;
+
+
         }
-        [Test]
+        [Test] //тест на создание юзера (по CreateUserRequestDTO) и наличие полей в респонсе (по CreateUserResponseSTO)
         public async Task Test3()
         {
-            CreateUserRequestDTO request = new CreateUserRequestDTO
+            var createNewUserRequest = new CreateUserRequestDTO
             {
-                Name = "John Worker",
-                Job = "QA ChillGuy"
+                Name = "Justus",
+                Job = "Cheerful milkman"
             };
 
-            using HttpResponseMessage response = await client.PostAsJsonAsync("users", request);
+            using HttpResponseMessage response = await client.PostAsJsonAsync("users", createNewUserRequest);
             string jsonPost = await response.Content.ReadAsStringAsync();
-            CreateUserResponseTest3DTO userResponse = JsonSerializer.Deserialize<CreateUserResponseTest3DTO>(jsonPost);
+            CreateUserResponseDTO createdUser = JsonSerializer.Deserialize<CreateUserResponseDTO>(jsonPost);
         }
+
         [Test]
         public async Task Test4()
         {
-            CreateUserRequestDTO request = new CreateUserRequestDTO
+            var updateUserRequest = new CreateUserRequestDTO
             {
-                Name = "John Worker",
-                Job = "QA Amongusuv"
+                Name = "Justus",
+                Job = "Internet celebrity"
             };
-
-            using HttpResponseMessage response = await client.PutAsJsonAsync("users/2", request);
+            using HttpResponseMessage response = await client.PutAsJsonAsync("users/2", updateUserRequest);
             response.EnsureSuccessStatusCode();
-
         }
+
         [Test]
         public async Task Test5()
         {
             using HttpResponseMessage response = await client.DeleteAsync("users/2");
-
             response.EnsureSuccessStatusCode();
         }
+
         [OneTimeTearDown]
         public void TearDown()
         {
