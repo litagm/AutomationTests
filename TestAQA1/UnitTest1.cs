@@ -38,8 +38,8 @@ namespace Test1
         {
             var createNewUserRequest = new CreateUserRequestDTO
             {
-                Name = "Justus",
-                Job = "Cheerful milkman"
+                Name = "Johan",
+                Job = "PO"
             };
 
             using HttpResponseMessage response = await client.PostAsJsonAsync("users", createNewUserRequest);
@@ -52,8 +52,8 @@ namespace Test1
         {
             var updateUserRequest = new CreateUserRequestDTO
             {
-                Name = "Justus",
-                Job = "Internet celebrity"
+                Name = "Mark",
+                Job = "QA"
             };
             using HttpResponseMessage response = await client.PutAsJsonAsync("users/2", updateUserRequest);
             response.EnsureSuccessStatusCode();
