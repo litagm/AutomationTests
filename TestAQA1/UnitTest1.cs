@@ -33,7 +33,7 @@ namespace Test1
 
 
         }
-        [Test] //тест на создание юзера (по CreateUserRequestDTO) и наличие полей в респонсе (по CreateUserResponseSTO)
+        [Test] 
         public async Task Test3()
         {
             var createNewUserRequest = new CreateUserRequestDTO
