@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using NUnit.Framework;
 
-namespace AutomationTests.Helpers
+namespace AutomationTests.Utils
 {
     public static class FileReader
     {

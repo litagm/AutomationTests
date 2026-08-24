@@ -62,7 +62,7 @@ namespace Tests1.Tests
                 var response = await api.UpdateUserAsync(2, request); // Убедитесь, что метод в интерфейсе назван именно UpdateUserAsync
                 Assert.That(response.Job, Is.EqualTo("QA"));
             }
-        }
+        } 
 
     }
 }
