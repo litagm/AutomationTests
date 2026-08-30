@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Test
+namespace AutomationTests.DTO.FirstTestDTO
 {
     public class CreateUserResponseDTO
     {

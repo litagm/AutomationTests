@@ -1,8 +1,9 @@
-﻿using System.Net.Http.Json;
+﻿using AutomationTests.DTO.FirstTestDTO;
+using System.Net.Http.Json;
 using System.Text.Json;
-using Test;
+using AutomationTests.DTO.FirstTestDTO;
 
-namespace Test1
+namespace AutomationTests.Tests
 {
     public class Tests
     {
@@ -18,13 +19,13 @@ namespace Test1
             client.DefaultRequestHeaders.Add("x-api-key", "free_user_3IJZWznUMiXWMH5pK9fwL6ouONU");
         }
         [Test]
-        public async Task Test1()
+        public async Task Test1() //Отправляет GET-запрос юзера (id: 2) и проверяет код ответа 200 OK
         {
             using HttpResponseMessage response = await client.GetAsync("users/2");
             response.EnsureSuccessStatusCode();
         }
         [Test]
-        public async Task Test2()
+        public async Task Test2() //Получает юзера по GET, читает JSON и превращает его в C#-объект
         {
             using HttpResponseMessage response = await client.GetAsync("users/2");
             string jsonGet = await response.Content.ReadAsStringAsync();
@@ -35,7 +36,7 @@ namespace Test1
         }
 
         [Test]
-        public async Task Test3()
+        public async Task Test3() //Отправляет POST-запрос на создание юзера ("Johan", "PO") и читает ответ от сервера.
         {
             var createNewUserRequest = new CreateUserRequestDTO
             {
@@ -49,7 +50,7 @@ namespace Test1
         }
 
         [Test]
-        public async Task Test4()
+        public async Task Test4() //Отправляет PUT-запрос на обновление юзера (id: 2, новые данные: "Mark", "QA") и проверяет статус ответа
         {
             var updateUserRequest = new CreateUserRequestDTO
             {
@@ -61,7 +62,7 @@ namespace Test1
         }
 
         [Test]
-        public async Task Test5()
+        public async Task Test5() //Отправляет DELETE-запрос на удаление юзера (id: 2) и проверяет успешность операции
         {
             using HttpResponseMessage response = await client.DeleteAsync("users/2");
             response.EnsureSuccessStatusCode();
