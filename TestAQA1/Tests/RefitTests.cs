@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using AutomationTests.DTO.FirstTestDTO;
-using Tests1.Interfaces;
+using AutomationTests.Interfaces;
 
 
-namespace Tests1.Tests
+namespace AutomationTests.Tests
 {
     public class RefitTests
     {

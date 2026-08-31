@@ -8,7 +8,7 @@ using System.Text;
 using AutomationTests.DTO.DapperTestsDTO;
 using AutomationTests.Interfaces.DapperTestsInterfaces;
 
-namespace AutomationTests.Repositories
+namespace AutomationTests.Repositories.DapperTestRepositories
 {
     public class AddressRepository : IAddressRepository
     {

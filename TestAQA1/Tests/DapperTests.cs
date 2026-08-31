@@ -10,6 +10,7 @@ using AutomationTests.Interfaces;
 using AutomationTests.Preconditions;
 using AutomationTests.Interfaces.DapperTestsInterfaces;
 using FluentAssertions;
+using System.Linq;
 
 namespace AutomationTests.Tests
 {
@@ -52,13 +53,62 @@ namespace AutomationTests.Tests
         }
 
 
-        [Test] //генерация базы - раскомментить, а потом запустить тест разово
-        public async Task InitialiseTest()
+        //[Test] //генерация базы - раскомментить, а потом запустить тест разово
+        //public async Task InitialiseTest()
+        //{
+        //var connectionString = "Data Source=marketplace.db";
+        //await using var connection = new SqliteConnection(connectionString);
+        //await connection.OpenAsync();
+        // await DatabaseInitializer.InitializeAsync(connection);
+        //}
+
+        [Test]
+        public async Task Test21CheckAllCategoriesCount()
         {
-            var connectionString = "Data Source=marketplace.db";
-            await using var connection = new SqliteConnection(connectionString);
-            await connection.OpenAsync();
-            await DatabaseInitializer.InitializeAsync(connection);
+            var repo = p.Provider.GetService<ICategoryRepository>();
+            var categories = await repo.GetCategoriesAsync();
+
+            categories.Should().HaveCount(6);
         }
+
+        [Test]
+        public async Task Test22GetProductByIdAndCheckFields()
+        {
+            var repo = p.Provider.GetService<IProductRepository>();
+
+            var product = await repo.GetProductByIdAsync(13);
+
+            product.Should().NotBeNull();
+            product.name.Should().Be("Philips Airfryer");
+            product.description.Should().Be("Аэрогриль Philips");
+            product.price.Should().Be(12990);
+            product.stock.Should().Be(20);
+            product.categoryId.Should().Be(5);
+        }
+
+        [Test]
+        public async Task Test23GetUserOrderWithItems()
+        {
+            var repo = p.Provider.GetService<IOrderRepository>();
+
+            var order = await repo.GetOrderByIdAndUserIdAsync(8, 8);
+
+            order.Should().NotBeNull();
+            order.userId.Should().Be(8);
+            order.orderDate.Should().Be("2026-03-12");
+            order.status.Should().Be("Processing");
+            order.totalPrice.Should().Be(42990);
+
+            var items = (await repo.GetOrderItemsWithProductsByOrderIdAsync(8)).ToList();
+
+            items.Should().NotBeNullOrEmpty();
+            items.Should().HaveCount(1);
+
+            var item = items.First();
+            item.productId.Should().Be(14);
+            item.quantity.Should().Be(1);
+            item.unitPrice.Should().Be(42990);
+        }
+
     }
 }
