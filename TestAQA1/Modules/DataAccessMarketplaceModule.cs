@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using AutomationTests.Interfaces.DapperTestsInterfaces;
-using AutomationTests.Repositories;
+using AutomationTests.Repositories.DapperTestRepositories;
 
 namespace AutomationTests.Modules
 {
