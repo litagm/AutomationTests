@@ -6,7 +6,7 @@ using Refit;
 using AutomationTests.DTO.FirstTestDTO;
 
 
-namespace Tests1.Interfaces
+namespace AutomationTests.Interfaces
 {
     [Headers("x-api-key: free_user_3IJZWznUMiXWMH5pK9fwL6ouONU")]
     public interface IUserApi
