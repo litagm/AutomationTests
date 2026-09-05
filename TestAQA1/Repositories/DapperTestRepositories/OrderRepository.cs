@@ -53,5 +53,32 @@ namespace AutomationTests.Repositories.DapperTestRepositories
             var items = await db.QueryAsync<OrderItemsDTO>(sql, new { orderId = orderId });
             return items;
         }
+
+        public async Task<bool> DoAllTvBuyersBuyAccessoriesAsync()
+        {
+            using var db = new SqliteConnection(connection);
+
+            const string sql = @"
+        SELECT COUNT(1)
+        FROM (
+            SELECT DISTINCT o.UserId
+            FROM Orders o
+            JOIN OrderItems oi ON o.Id = oi.OrderId
+            JOIN Products p ON oi.ProductId = p.Id
+            JOIN Categories c ON p.CategoryId = c.Id
+            WHERE c.Name = 'Телевизоры'
+        ) tv_buyers
+        INNER JOIN (
+            SELECT DISTINCT o.UserId
+            FROM Orders o
+            JOIN OrderItems oi ON o.Id = oi.OrderId
+            JOIN Products p ON oi.ProductId = p.Id
+            JOIN Categories c ON p.CategoryId = c.Id
+            WHERE c.Name = 'Аксессуары'
+        ) acc_buyers ON tv_buyers.UserId = acc_buyers.UserId;";
+
+            var matchingBuyersCount = await db.ExecuteScalarAsync<int>(sql);
+            return matchingBuyersCount > 0;
+        }
     }
 }

@@ -1,0 +1,14 @@
+﻿using AutomationTests.DTO.PetStoreDTO;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json.Serialization;
+
+namespace AutomationTests.DTO.PetStoreDTO
+{
+    public record RootDTO(
+        List<PetDTO> Data,
+        PaginationDTO Pagination
+    );
+
+}

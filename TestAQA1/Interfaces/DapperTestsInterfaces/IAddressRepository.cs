@@ -9,5 +9,6 @@ namespace AutomationTests.Interfaces.DapperTestsInterfaces
     public interface IAddressRepository
     {
         Task<AddressDTO> GetAddressByUserId(int userId);
+        Task<IEnumerable<string>> GetCitiesByCategoryNameAsync(string categoryName);
     }
 }

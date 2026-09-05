@@ -26,5 +26,22 @@ namespace AutomationTests.Repositories.DapperTestRepositories
                 "WHERE UserId = @userId", new { userId });
             return address;
         }
+
+        public async Task<IEnumerable<string>> GetCitiesByCategoryNameAsync(string categoryName)
+        {
+            using var db = new SqliteConnection(connection);
+
+            const string sql = @"
+                SELECT DISTINCT a.City
+                FROM Addresses a
+                JOIN Orders o ON a.UserId = o.UserId
+                JOIN OrderItems oi ON o.Id = oi.OrderId
+                JOIN Products p ON oi.ProductId = p.Id
+                JOIN Categories c ON p.CategoryId = c.Id
+                WHERE c.Name = @categoryName;";
+
+            var cities = await db.QueryAsync<string>(sql, new { categoryName });
+            return cities;
+        }
     }
 }
