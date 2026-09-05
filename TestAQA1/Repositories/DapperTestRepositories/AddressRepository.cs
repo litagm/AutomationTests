@@ -13,6 +13,7 @@ namespace AutomationTests.Repositories.DapperTestRepositories
     public class AddressRepository : IAddressRepository
     {
         private readonly string connection;
+
         public AddressRepository(string connection)
         {
             this.connection = connection;
