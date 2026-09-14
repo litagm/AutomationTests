@@ -110,5 +110,26 @@ namespace AutomationTests.Tests
             item.unitPrice.Should().Be(42990);
         }
 
+        [Test]
+        public async Task Test24CheckAccessoriesBoughtByUsersFromDifferentCities()
+        {
+            var repo = p.Provider.GetService<IAddressRepository>();
+
+            var cities = (await repo.GetCitiesByCategoryNameAsync("Аксессуары")).ToList();
+
+            cities.Should().NotBeNullOrEmpty();
+            cities.Distinct().Count().Should().BeGreaterThan(1);
+        }
+
+        [Test]
+        public async Task Test25CheckTvBuyersAlsoBuyAccessories()
+        {
+            var repo = p.Provider.GetService<IOrderRepository>();
+
+            var result = await repo.DoAllTvBuyersBuyAccessoriesAsync();
+
+            result.Should().BeTrue();
+        }
+
     }
 }

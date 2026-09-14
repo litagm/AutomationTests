@@ -10,5 +10,6 @@ namespace AutomationTests.Interfaces.DapperTestsInterfaces
     {
         Task<OrderDTO> GetOrderByIdAndUserIdAsync(int orderId, int userId);
         Task<IEnumerable<OrderItemsDTO>> GetOrderItemsWithProductsByOrderIdAsync(int orderId);
+        Task<bool> DoAllTvBuyersBuyAccessoriesAsync();
     }
 }
