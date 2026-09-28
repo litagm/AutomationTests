@@ -57,11 +57,6 @@ namespace AutomationTests.Tests
         {
             var pets = await api.GetAllPetsByMinAgeAndLimit100Async(3, 10);
             var result = pets.Data;
-            //foreach(var pet in result)
-            //{
-            //    TestContext.WriteLine($"{pet}");
-            //    pet.AgeMonth.Should().BeGreaterThanOrEqualTo(3);
-            //}
             pets.Should().NotBeNull();
             pets.Data.Should().HaveCount(10);
             bool res = result.All(p => p.AgeMonths >= 3);
