@@ -12,6 +12,7 @@ namespace AutomationTests.ForUI.Pages.SauceDemo
         private readonly IPage Page;
         private ILocator PageTitle => Page.Locator("//*[@class='title']");
         private ILocator CartButton => Page.Locator("//*[@id='shopping_cart_container']");
+        private ILocator InventoryItems => Page.Locator(".inventory_item");
 
         public ProductsPage(IPage page)
         {
@@ -23,7 +24,8 @@ namespace AutomationTests.ForUI.Pages.SauceDemo
 
         public async Task AddToCartByNameAsync(string itemName)
         {
-            await Page.Locator(".inventory_item")
+
+            await InventoryItems
                 .Filter(new() { HasText = itemName })
                 .GetByRole(AriaRole.Button, new() { Name = "Add to cart" })
                 .ClickAsync();
