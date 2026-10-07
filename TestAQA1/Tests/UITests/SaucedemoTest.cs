@@ -1,6 +1,7 @@
-﻿using AutomationTests.ForUI.Pages.SauceDemo;
-using FluentAssertions;
+﻿using AutomationTests.DataProvider;
+using AutomationTests.ForUI.Pages.SauceDemo;
 using AutomationTests.Tests.UITests;
+using FluentAssertions;
 using Microsoft.Playwright;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using static Microsoft.Playwright.Assertions;
 
 namespace AutomationTests.Tests.UITests
 {
+    [TestFixture]
     public class SaucedemoTest : BaseTest
     {
         [Test]
@@ -61,5 +63,22 @@ namespace AutomationTests.Tests.UITests
             await checkoutComplete.CheckPageIsOpenAsync();
 
         }
+
     }
-}
+
+    [TestFixture]
+        public class SauceDemoLoginTests : BaseTest
+        {
+            [TestCaseSource(typeof(UserDataProvider),
+                nameof(UserDataProvider.GetUserCases))]
+            public async Task LoginValidationTest(string username)
+            {
+                LoginPage loginPage = new LoginPage(Page);
+                await loginPage.OpenLoginPageAsync();
+                await loginPage.FillLoginFormAsync(username, "secret_sauce");
+
+                ProductsPage productsPage = new ProductsPage(Page);
+                await productsPage.CheckPageIsOpenAsync();
+            }
+        }
+    }
